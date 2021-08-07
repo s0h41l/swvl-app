@@ -2,7 +2,7 @@ version: "3"
 services: 
     node-server:
         image: node:16-alpine3.11
-        command: sh -c "npm install && npm i -g sequelize-cli && sequelize db:migrate && npm start"
+        command: sh -c "npm install && npm i -g sequelize-cli && sequelize db:migrate && sequelize db:seed:all && npm start"
         ports: 
             - 8080:8080
         working_dir: /app
@@ -15,6 +15,8 @@ services:
             MYSQL_DB: swvl_db
             NODE_SERVER_PORT: 8083
             NODE_ENV: development
+            REDIS_HOST: redis
+            REDIS_PORT: 6379
         depends_on: 
             - db
     db:
