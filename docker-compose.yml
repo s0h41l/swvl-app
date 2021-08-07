@@ -1,0 +1,34 @@
+version: "3"
+services: 
+    node-server:
+        image: node:16-alpine3.11
+        command: sh -c "npm install && npm i -g sequelize && sequelize db:migrate && npm start"
+        ports: 
+            - 8080:8080
+        working_dir: /app
+        volumes: 
+            - ./:/app
+        environment: 
+            MYSQL_HOST: db
+            MYSQL_USER: root
+            MYSQL_PASSWORD: password
+            MYSQL_DB: swvl_db
+            NODE_SERVER_PORT: 8080
+        depends_on: 
+            - db
+    db:
+        image: mysql:5.7
+        volumes: 
+            - swvl-mysql-data:/var/lib/mysql
+        environment: 
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: swvl_db
+        ports: 
+            - 3306:3306
+    redis:
+        image: redis:6.2.5-alpine
+        ports:
+            - 6379:6379
+
+volumes:
+    swvl-mysql-data:
