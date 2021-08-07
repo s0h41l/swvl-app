@@ -4,10 +4,18 @@ const cors = require('cors');
 
 const notificationRoutes = require('./routes/notification');
 
-app.use(bodyParser.json());
 cors();
 
+app.use(bodyParser.json());
+
 app.use('/notification', notificationRoutes);
+
+// Error handler
+app.use(function (err, req, res, next) {
+    const code = err.statusCode || 500;
+    const message = err.message;
+    res.status(code).send(message);
+  });
 
 const PORT = process.env.NODE_SERVER_PORT || 8080;
 app.listen(PORT, () => {
