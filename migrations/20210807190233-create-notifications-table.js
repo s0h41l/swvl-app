@@ -17,14 +17,6 @@ module.exports = {
           ]
         })
       },
-      audience: {
-        type: Sequelize.ENUM({
-          values: [
-            'group',
-            'individual'
-          ]
-        })
-      },
       content: {
         type: Sequelize.TEXT
       },
@@ -32,15 +24,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: 'users',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL'
-      },
-      groupId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'groups',
           key: 'id'
         },
         onUpdate: 'CASCADE',
