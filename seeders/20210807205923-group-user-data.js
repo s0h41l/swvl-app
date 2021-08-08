@@ -1,5 +1,7 @@
 'use strict';
 
+const models = require('../models');
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const groupUsers = [];
@@ -13,9 +15,9 @@ module.exports = {
       }
     }
 
-    return queryInterface.bulkInsert('group_users', groupUsers);
+    return models.group_user.bulkCreate(groupUsers, { ignoreDuplicates: true });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('group_users', null, {});
+    return models.group_user.destroy();
   }
 };

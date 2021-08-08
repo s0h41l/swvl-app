@@ -1,6 +1,7 @@
 'use strict';
 
 const faker = require('faker');
+const models = require('../models');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -14,9 +15,10 @@ module.exports = {
         role: i % 15 ? 'customer' : 'rider'
       });
     }
-    return queryInterface.bulkInsert('users', users);
+
+    return models.user.bulkCreate(users, { ignoreDuplicates: true });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('users', null, {});
+    return models.user.destroy()
   }
 };
