@@ -13,12 +13,13 @@ services:
             MYSQL_USER: root
             MYSQL_PASSWORD: password
             MYSQL_DB: swvl_db
-            NODE_SERVER_PORT: 8083
+            NODE_SERVER_PORT: 8080
             NODE_ENV: development
             REDIS_HOST: redis
             REDIS_PORT: 6379
         depends_on: 
             - db
+            - redis
     db:
         image: mysql:5.7
         volumes: 
