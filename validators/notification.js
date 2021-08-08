@@ -36,7 +36,7 @@ const content = check => [
             throw new httpErrors.UnprocessableEntity('Invalid content field');
         }
 
-        if(!Object.keys(value['english']).includes('title') || !Object.keys(value['urdu']).includes('body')){
+        if(!Object.keys(value['urdu']).includes('body')){
             throw new httpErrors.UnprocessableEntity('Invalid content field');   
         }
 
