@@ -1,0 +1,311 @@
+{
+    "openapi":"3.0.2",
+    "info":{
+        "title":"Notification API documentation",
+        "description":"Notification API endpoints.",
+        "contact":{
+            "email":"sohailkhan.sk@hotmail.com"
+        },
+        "version":"1.0.0"
+    },
+    "servers":[
+        {
+            "url":"http://127.0.0.1:8080",
+            "description":"Local"
+        }
+    ],
+    "tags":[
+        {
+            "name":"Notification",
+            "description":"Notification related endpoints"
+        }
+    ],
+    "paths":{
+        "/notification/group":{
+            "put":{
+                "tags":[
+                    "Notification"
+                ],
+                "summary":"Send group notification",
+                "description":"Send group notification",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "type":{
+                                        "type":"string",
+                                        "enum": ["text", "push"],
+                                        "example": "text",
+                                        "description": "notification type (push/text)"
+                                    },
+                                    "content": {
+                                        "type": "object",
+                                        "properties": {
+                                            "english": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string",
+                                                        "description": "title of notification"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "description": "body of notification"
+                                                    }
+                                                }
+                                            },
+                                            "urdu": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string",
+                                                        "description": "title of notification"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "description": "body of notification"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "description": "group ids"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required":true
+                },
+                "responses":{
+                    "200":{
+                        "description":"successful operation",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "properties":{
+                                        "message":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description":"unauthorized Access"
+                    },
+                    "404":{
+                        "description":"endpoint not found"
+                    },
+                    "422":{
+                        "description":"unprocessable data"
+                    }
+                }
+            }
+        },
+        "/notification/individual":{
+            "put":{
+                "tags":[
+                    "Notification"
+                ],
+                "summary":"Send individual notification",
+                "description":"Send individual notification",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "type":{
+                                        "type":"string",
+                                        "enum": ["text", "push"],
+                                        "example": "text",
+                                        "description": "notification type (push/text)"
+                                    },
+                                    "content": {
+                                        "type": "object",
+                                        "properties": {
+                                            "english": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string",
+                                                        "description": "title of notification"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "description": "body of notification"
+                                                    }
+                                                }
+                                            },
+                                            "urdu": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "title": {
+                                                        "type": "string",
+                                                        "description": "title of notification"
+                                                    },
+                                                    "body": {
+                                                        "type": "string",
+                                                        "description": "body of notification"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "ids": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "description": "user ids"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required":true
+                },
+                "responses":{
+                    "200":{
+                        "description":"successful operation",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "properties":{
+                                        "message":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description":"unauthorized Access"
+                    },
+                    "404":{
+                        "description":"endpoint not found"
+                    },
+                    "422":{
+                        "description":"unprocessable data"
+                    }
+                }
+            }
+        }
+      
+
+    },
+    "components":{
+        "schemas":{
+            "group":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"integer"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "createdAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    },
+                    "updatedAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    }
+                }
+            },
+            "user":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"integer"
+                    },
+                    "name":{
+                        "type":"string"
+                    },
+                    "mobile":{
+                        "type":"string"
+                    },
+                    "role":{
+                        "type":"string",
+                        "enum": ["customer", "rider"]
+                    },
+                    "language":{
+                        "type":"string",
+                        "enum": ["english", "urdu"]
+                    },
+                    "password":{
+                        "type":"string"
+                    },
+                    "createdAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    },
+                    "updatedAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    }
+                }
+            },
+            "notification":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"integer"
+                    },
+                    "content":{
+                        "type":"string"
+                    },
+                    "userId":{
+                        "type":"integer"
+                    },
+                    "type":{
+                        "type":"string",
+                        "enum": ["text", "push"]
+                    },
+                    "createdAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    },
+                    "updatedAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    }
+                }
+            },
+            "group-user":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                        "type":"integer"
+                    },
+                    "groupId":{
+                        "type":"integer"
+                    },
+                    "userId":{
+                        "type":"integer"
+                    },
+                    "createdAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    },
+                    "updatedAt":{
+                        "type":"string",
+                        "format":"date-time"
+                    }
+                }
+            }
+        }
+    }
+}
