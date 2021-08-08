@@ -2,11 +2,17 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const swaggerUi = require('swagger-ui-express');
+const apiDoc = require('./config/api-doc.json');
+
 const notificationRoutes = require('./routes/notification');
 
-cors();
+
+app.use(cors());
 
 app.use(bodyParser.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDoc));
 
 app.use('/notification', notificationRoutes);
 
