@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const GroupUser = sequelize.define('group_user', {
         id: {
             allowNull: false,
@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
         userId: {
             type: DataTypes.INTEGER,
             references: {
-            model: 'users',
-            key: 'id'
+                model: 'users',
+                key: 'id'
             },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
@@ -18,13 +18,26 @@ module.exports = function(sequelize, DataTypes) {
         groupId: {
             type: DataTypes.INTEGER,
             references: {
-            model: 'groups',
-            key: 'id'
+                model: 'groups',
+                key: 'id'
             },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
     });
+
+    GroupUser.associate = (models) => {
+        models.user.belongsToMany(models.group, {
+            through: 'group_user',
+            foreignKey: 'userId'
+        });
+
+        models.group.belongsToMany(models.user, {
+            through: 'group_user',
+            foreignKey: 'groupId'
+        });
+
+    };
 
     return GroupUser
 }

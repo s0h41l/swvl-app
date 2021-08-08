@@ -14,14 +14,6 @@ module.exports = function(sequelize, DataTypes) {
               ]
             })
           },
-          audience: {
-            type: DataTypes.ENUM({
-              values: [
-                'group',
-                'individual'
-              ]
-            })
-          },
           content: {
             type: DataTypes.TEXT
           },
@@ -33,16 +25,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
-          },
-          groupId: {
-            type: DataTypes.INTEGER,
-            references: {
-              model: 'groups',
-              key: 'id'
-            },
-            onUpdate: 'CASCADE',
-            onDelete: 'SET NULL'
-          },
+          }
     });
     return Notification;
 }
